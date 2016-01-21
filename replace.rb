@@ -1,4 +1,5 @@
-file_names = ['foo.m','bar.txt']
+
+file_names = ['foo.m', 'bar.txt']
 
 file_names.each do |file_name|
     File.rename(file_name, "bk"+file_name)
@@ -9,7 +10,7 @@ file_names.each do |file_name|
 		if ( line =~ /-\s*\(\s*void\s*\)\s*test/ )
 		    order = order + 1
 		    message = "_%02d_"%[order]
-		    line.gsub!(Regexp.new('(-\s*\(\s*void\s*\)\s*test)(.*)'), '\1'+message+'\2')      	           
+		    line.gsub!(Regexp.new('(-\s*\(\s*void\s*\)\s*test)(_?\d?\d?_?)(.*)'), '\1'+message+'\3')      	           
                     puts line
 		end
       	        test.puts line
@@ -17,5 +18,6 @@ file_names.each do |file_name|
          end
  
      end
+     File.delete("bk"+file_name) if File.exist?("bk"+file_name)
 end
 
